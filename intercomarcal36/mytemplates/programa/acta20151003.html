@@ -1,0 +1,176 @@
+{% extends "programa/base.html" %}
+
+{% block body %}
+
+<h1>Acta del partit</h1>
+<h1>{{ local.equip.nom }} - {{ visitant.equip.nom }}</h1>
+
+<form action="" method="post" onkeydown="UpdateTotals();">
+    {% csrf_token %}
+<table class="normal" cellpadding=3>
+    <tr>
+        <td class="normal">ABC</td>
+        <td class="normal"><div {% if myform.equipabc.errors %}class="field_error"{% endif %}>{{ myform.equipabc }}</div></td>
+        <td class="normal">XYZ</td>
+        <td class="normal"><div {% if myform.equipxyz.errors %}class="field_error"{% endif %}>{{ myform.equipxyz }}</div></td>
+        <td class="normal">Jocs</td>
+        <td class="normal">Total</td>
+    </tr>
+    <tr>
+        <td class="normal">A</td>
+        <td class="normal"><div {% if myform.abc1.errors %}class="field_error"{% endif %}>{{ myform.abc1 }}</div></td>
+        <td class="normal">Y</td>
+        <td class="normal"><div {% if myform.xyz1.errors %}class="field_error"{% endif %}>{{ myform.xyz1 }}</div></td>
+        <td class="normal"><div {% if myform.abcr1.errors %}class="field_error"{% endif %}>{{ myform.abcr1 }}</div>-<div {% if myform.xyzr1.errors %}class="field_error"{% endif %}>{{ myform.xyzr1 }}</div></td>
+        <td class="normal"><label id="labtotal1" name="labtotal1"></label></td>
+    </tr>
+    <tr>
+        <td class="normal">B</td>
+        <td class="normal"><div {% if myform.abc2.errors %}class="field_error"{% endif %}>{{ myform.abc2 }}</div></td>
+        <td class="normal">X</td>
+        <td class="normal"><div {% if myform.xyz2.errors %}class="field_error"{% endif %}>{{ myform.xyz2 }}</div></td>
+        <td class="normal"><div {% if myform.abcr2.errors %}class="field_error"{% endif %}>{{ myform.abcr2 }}</div>-<div {% if myform.xyzr2.errors %}class="field_error"{% endif %}>{{ myform.xyzr2 }}</div></td>
+        <td class="normal"><label id="labtotal2" name="labtotal2"></label></td>
+    </tr>
+    <tr>
+        <td class="normal">C</td>
+        <td class="normal"><div {% if myform.abc3.errors %}class="field_error"{% endif %}>{{ myform.abc3 }}</div></td>
+        <td class="normal">Z</td>
+        <td class="normal"><div {% if myform.xyz3.errors %}class="field_error"{% endif %}>{{ myform.xyz3 }}</div></td>
+        <td class="normal"><div {% if myform.abcr3.errors %}class="field_error"{% endif %}>{{ myform.abcr3 }}</div>-<div {% if myform.xyzr3.errors %}class="field_error"{% endif %}>{{ myform.xyzr3 }}</div></td>
+        <td class="normal"><label id="labtotal3" name="labtotal3"></label></td>
+    </tr>
+    <tr>
+        <td class="normal">A</td>
+        <td class="normal"><div {% if myform.abc4.errors %}class="field_error"{% endif %}>{{ myform.abc4 }}</div></td>
+        <td class="normal">X</td>
+        <td class="normal"><div {% if myform.xyz4.errors %}class="field_error"{% endif %}>{{ myform.xyz4 }}</div></td>
+        <td class="normal"><div {% if myform.abcr4.errors %}class="field_error"{% endif %}>{{ myform.abcr4 }}</div>-<div {% if myform.xyzr4.errors %}class="field_error"{% endif %}>{{ myform.xyzr4 }}</div></td>
+        <td class="normal"><label id="labtotal4" name="labtotal4"></label></label></td>
+    </tr>
+        <tr>
+        <td class="normal">C</td>
+        <td class="normal"><div {% if myform.abc5.errors %}class="field_error"{% endif %}>{{ myform.abc5 }}</div></td>
+        <td class="normal">Y</td>
+        <td class="normal"><div {% if myform.xyz5.errors %}class="field_error"{% endif %}>{{ myform.xyz5 }}</div></td>
+        <td class="normal"><div {% if myform.abcr5.errors %}class="field_error"{% endif %}>{{ myform.abcr5 }}</div>-<div {% if myform.xyzr5.errors %}class="field_error"{% endif %}>{{ myform.xyzr5 }}</div></td>
+        <td class="normal"><label id="labtotal5" name="labtotal5"></label></td>
+    </tr>
+    <tr>
+        <td class="normal">B</td>
+        <td class="normal"><div {% if myform.abc6.errors %}class="field_error"{% endif %}>{{ myform.abc6 }}</div></td>
+        <td class="normal">Z</td>
+        <td class="normal"><div {% if myform.xyz6.errors %}class="field_error"{% endif %}>{{ myform.xyz6 }}</div></td>
+        <td class="normal"><div {% if myform.abcr6.errors %}class="field_error"{% endif %}>{{ myform.abcr6 }}</div>-<div {% if myform.xyzr6.errors %}class="field_error"{% endif %}>{{ myform.xyzr6 }}</div></td>
+        <td class="normal"><label id="labtotal6" name="labtotal6"></label></td>
+    </tr>
+    <tr>
+        <td class="normal">Doble</td>
+        <td class="normal"><div {% if myform.abcd1.errors %}class="field_error"{% endif %}>{{ myform.abcd1 }}</div>
+                                <br>
+                                <div {% if myform.abcd2.errors %}class="field_error"{% endif %}>{{ myform.abcd2 }}</div></td>
+        <td class="normal">Doble</td>
+        <td class="normal"><div {% if myform.xyzd1.errors %}class="field_error"{% endif %}>{{ myform.xyzd1 }}</div>
+                                <br>
+                                <div {% if myform.xyzd2.errors %}class="field_error"{% endif %}>{{ myform.xyzd2 }}</div></td>
+        <td class="normal"><div {% if myform.abcrd.errors %}class="field_error"{% endif %}>{{ myform.abcrd }}</div>-<div {% if myform.xyzrd.errors %}class="field_error"{% endif %}>{{ myform.xyzrd }}</div></td>
+        <td class="normal"><label id="labtotald" name="labtotald"></label></td>
+    </tr>
+</table>
+
+<br>
+
+
+<table class="normal" cellpadding=3>
+    <tr>
+            <th class="titol">Guanyador</th>
+            <th class="titol">Resultat general</th>
+            <th class="titol">Jocs totals</th>
+    </tr>
+    <tr>
+            <td class="normal"><label id="labguanyador" name="labguanyador"></label></td>
+            <td class="normal"><label id="labresultat" name="labresultat"></label></td>
+            <td class="normal"><label id="labjocs" name="labjocs"></label></td>
+    </tr>
+</table>
+
+<br>
+
+<input type="submit" value="Actualitzar"/></td>
+</form>
+
+
+<script type="text/javascript">
+function UpdateTotals() {
+    var jocsabc = 0;
+    var jocsxyz = 0;
+    var totalabc = 0;
+    var totalxyz = 0; 
+    var elemabc,elemxyz,lab;
+    var listindexs = new Array(1,2,3,4,5,6,'d');
+    var fullacta = true;
+    
+    for (j in listindexs) {
+        // j is the index of the vector listindex.  i is the elem of pos j
+        var i = listindexs[j];
+        elemabc = document.getElementById("id_abcr"+i);
+        elemxyz = document.getElementById("id_xyzr"+i);
+        if (elemabc.value != '' && elemxyz.value != '') {
+            jocsabc = jocsabc + parseInt(elemabc.value);
+            jocsxyz = jocsxyz + parseInt(elemxyz.value);
+            lab = document.getElementById("labtotal"+i);
+            if (elemabc.value > elemxyz.value) {
+                totalabc = totalabc + 1;
+            }
+            else if (elemabc.value  < elemxyz.value) {
+                totalxyz = totalxyz + 1;
+            }
+            lab.innerHTML = totalabc + "-" + totalxyz;
+        }
+        else {
+            fullacta = false;
+        }
+    }
+    if (fullacta) {
+        // Totals
+        lab = document.getElementById("labguanyador");
+        var nomequipabc,nomequipxyz,nomguanyador,nomperdedor;
+        var indexabc,indexxyz;
+        indexabc = document.getElementById("id_equipabc").selectedIndex;
+        indexxyz = document.getElementById("id_equipxyz").selectedIndex;
+        nomequipabc = document.getElementById("id_equipabc").options[indexabc].text;
+        nomequipxyz = document.getElementById("id_equipxyz").options[indexxyz].text;        
+        if (totalabc > totalxyz) {
+            lab.innerHTML = nomequipabc;
+            nomguanyador = nomequipabc;
+            nomperdedor = nomequipxyz;
+        }        
+        else {
+            lab.innerHTML = nomequipxyz;
+            nomguanyador = nomequipxyz;
+            nomperdedor = nomequipabc;
+        }
+        lab = document.getElementById("labresultat");
+        if (totalabc > totalxyz) {
+            lab.innerHTML = nomguanyador + " " + totalabc + "-" + totalxyz + " " + nomperdedor;
+        }
+        else {
+            lab.innerHTML = nomguanyador + " " + totalxyz + "-" + totalabc + " " + nomperdedor;
+        }
+        lab = document.getElementById("labjocs");
+        if (totalabc > totalxyz) {
+            lab.innerHTML = nomguanyador + " " + jocsabc + "-" + jocsxyz + " " + nomperdedor;
+        }
+        else {
+            lab.innerHTML = nomguanyador + " " + jocsxyz + "-" + jocsabc + " " + nomperdedor;
+        }
+
+    }    
+    
+}
+
+document.onclick=UpdateTotals();
+</script>
+
+{% endblock body %}
+

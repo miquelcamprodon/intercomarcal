@@ -1,0 +1,36 @@
+{% extends "programa/base.html" %}
+
+{% block body %}
+
+{% comment %}
+<h1>Rànquing</h1>
+{% endcomment %}
+
+<table class="normal" cellpadding=3>
+<tr>
+    <th class="titol"></th>
+    <th class="titol">Jugador</th>
+    <th class="titol">Equip</th>
+    <th class="titol">PJ</th>
+    <th class="titol">PG</th>
+    <th class="titol">PP</th>
+    <th class="titol">SF</th>
+    <th class="titol">SC</th>
+    <th class="titol">Punts</th>
+</tr>
+{% for e in classificacio %}
+<tr>
+    <td class="normal">{{ forloop.counter }}</td>
+    <td class="normalnocentrat" align="left">{{ e.jugador }}</td>
+    <td class="normal">{{ e.equip }}</td>
+    <td class="normal">{{ e.pj }}</td>
+    <td class="normal">{{ e.pg }}</td>
+    <td class="normal">{{ e.pp }}</td>
+    <td class="normal">{{ e.sf }}</td>
+    <td class="normal">{{ e.sc }}</td>
+    <td class="normal">{{ e.punts|floatformat:1 }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock body %}

@@ -1,0 +1,18 @@
+{% extends "programa/base.html" %}
+
+{% block body %}
+
+<h1>Acta del partit</h1>
+<h1>{{ local.equip.nom }} - {{ visitant.equip.nom }}</h1>
+
+<form action ="" method="post">
+{{ myloginform.errors }}
+{% csrf_token %}
+Nom d'usuari: {{ myloginform.username }}
+<br>
+Contrassenya: {{ myloginform.password }}
+<br>
+<input type="submit" value="Entrar"/>
+</form>
+
+{% endblock body %}

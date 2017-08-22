@@ -1,0 +1,37 @@
+{% extends "programa/base.html" %}
+
+{% block body %}
+
+{% comment %}
+<h1>Rànquing Tennis Taula Intercomarcal 2013-2014</h1>
+{% endcomment %}
+
+<table class="normalranqtti" cellpadding=3>
+<tr>
+    <th class="ordre"></th>
+    <th class="titolranqtti">Jugador</th>
+    <th class="titolranqtti">Equip</th>
+{% for e in tornejostti %}
+    <th class="titoltorneig"><p class="titolgirat">{{ e.0}}</p></th>
+{% endfor %}
+    <th class="titoltotal"><p class="titolgirat">TOTAL</p></th>
+</tr>
+{% for e in ranquingtti %}
+<tr>
+    <td class="normalranqtti">{{ forloop.counter }}</td>
+    {% for t in e %}
+        {% if t == e.0 %}
+            <td class="normalranqttinocentrat" align="left">{{ t }}</td>
+        {% else %}
+            <td class="normalranqtti" align="left">{{ t }}</td>
+        {% endif %}
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>
+
+{% endblock body %}
+
+
+
+

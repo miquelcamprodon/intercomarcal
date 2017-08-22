@@ -1,0 +1,55 @@
+{% extends "programa/base.html" %}
+
+{% block body %}
+
+{% comment %}
+<h1>Calendari i resultats</h1>
+{% endcomment %}
+<table class="normal" cellpadding=3>
+{% for jd in ljordesc %}
+    <tr>
+        <th class="titol">Jornada {{ jd.jornada.numero}}</th>
+        <th class="titol"></th>
+        <th class="titol" align="right" colspan=2>{{ jd.jornada.data|date:"d M Y" }}</th>
+    </tr>
+    {% for e in jd.jornada.encontre_set.all %}
+	{% if e.local.equip.nom == 'Vic TT A' and e.local.competicio.nom == '20111f' %}
+    <tr>    
+	<td class="descansanocentrat" align="right">Descansa</td>
+        <td class="descansanocentrat"></td>
+        <td class="descansanocentrat" align="left">{{ e.visitant.equip.nom }}</td>
+	<td class="descansanocentrat"></td>
+    </tr>
+	{% else %} {% if e.visitant.equip.nom == 'Vic TT A' and e.visitant.competicio.nom == '20111f' %}
+    <tr>    
+	<td class="descansanocentrat" align="right">Descansa</td>
+        <td class="descansanocentrat"></td>
+        <td class="descansanocentrat" align="left">{{ e.local.equip.nom }}</td>
+	<td class="descansanocentrat"></td>
+    </tr>
+		{% else %}	
+    <tr>
+        <td class="normalnocentrat" align="right">{{ e.local.equip.nom }}</td>
+        <td class="normal">{% if e.resultat_local >= 4 or e.resultat_visitant >= 4 %}
+        {{ e.resultat_local }} - {{ e.resultat_visitant }} 
+        {% endif %}</td>
+        <td class="normalnocentrat" align="left">{{ e.visitant.equip.nom }}</td> 
+        <td class="normal"><a href="/programa/acta_cd/{{ e.id }}/">Entrar acta</a></td>
+    </tr>
+		{% endif %}
+	{% endif %}
+    {% endfor %}
+
+    {% if equip_descansa %}
+    <tr>
+        <td class="descansanocentrat" align="right">Descansa</td>
+        <td class="descansanocentrat"></td>
+        <td class="descansanocentrat" align="left">{{ jd.descansa }}</td>
+        <td class="descansanocentrat"></td>
+    </tr>
+    {% endif %}
+
+{% endfor %}
+</table>
+
+{% endblock body %}
