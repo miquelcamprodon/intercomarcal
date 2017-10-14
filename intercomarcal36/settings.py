@@ -126,3 +126,9 @@ USE_TZ = True
 #STATIC_URL = '/static/'
 STATIC_URL = '/site_media/'
 STATIC_ROOT = '/home/intercomarcal/intercomarcal36/intercomarcal36/static/'
+
+# X_FRAME_OPTIONS
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+# https://docs.djangoproject.com/en/1.11/ref/clickjacking/ 
+X_FRAME_OPTIONS = "ALLOW-FROM http://ttintercomarcal.blogspot.com/ http://ttintercomarcal.wordpress.com https://ttintercomarcal.wordpress.com"
+
