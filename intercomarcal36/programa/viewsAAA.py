@@ -52,7 +52,6 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
 from django.db.models import Q
-from django.views.decorators.clickjacking import xframe_options_exempt
 
 #from django.views.decorators.csrf import csrf_protect
 
@@ -64,9 +63,9 @@ from intercomarcal36.programa.forms import ActaForm,LoginForm,ActaFormCD
 # Language file - Catalan
 #from web.clases.languagesp import *
 
-@xframe_options_exempt
 def index(request):
     return render_to_response('programa/index.html')
+
 
 
 def get_equips_descansa(competicio):
@@ -101,7 +100,6 @@ def get_equips_descansa(competicio):
 
     return ldescansa
 
-@xframe_options_exempt
 def calendari(request,comp_nom):
     listj = Jornada.objects.filter(competicio__nom = comp_nom).order_by("numero")
     liste = EquipCompeticio.objects.filter(competicio__nom = comp_nom)
@@ -694,7 +692,10 @@ def ranquing_primera_fase(request,comp_nom,l_comp_1f,precalcula=False):
             if (enc.jocs_abc >= 3):
                 ljug[e]['pj'] = ljug[e]['pj'] + 1
                 ljug[e]['pg'] = ljug[e]['pg'] + 1
-                ljug[e]['punts'] = ljug[e]['punts'] + 2
+                if (comp_nom == 20171f):
+                    ljug[e]['punts'] = ljug[e]['punts'] + enc.sets_abc
+                else:
+                    ljug[e]['punts'] = ljug[e]['punts'] + 2
             else:
                 ljug[e]['pj'] = ljug[e]['pj'] + 1
                 ljug[e]['pp'] = ljug[e]['pp'] + 1

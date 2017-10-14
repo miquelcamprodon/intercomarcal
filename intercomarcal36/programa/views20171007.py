@@ -52,8 +52,6 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
 from django.db.models import Q
-from django.views.decorators.clickjacking import xframe_options_exempt
-
 #from django.views.decorators.csrf import csrf_protect
 
 # Local libraries
@@ -64,9 +62,9 @@ from intercomarcal36.programa.forms import ActaForm,LoginForm,ActaFormCD
 # Language file - Catalan
 #from web.clases.languagesp import *
 
-@xframe_options_exempt
 def index(request):
     return render_to_response('programa/index.html')
+
 
 
 def get_equips_descansa(competicio):
@@ -101,7 +99,6 @@ def get_equips_descansa(competicio):
 
     return ldescansa
 
-@xframe_options_exempt
 def calendari(request,comp_nom):
     listj = Jornada.objects.filter(competicio__nom = comp_nom).order_by("numero")
     liste = EquipCompeticio.objects.filter(competicio__nom = comp_nom)
@@ -231,9 +228,6 @@ def ordena_subclassificacio(loteams_ret,iii,jjj,lcomps):
         
         
 def classificacio(request,comp_nom):
-    # 2017    
-    if comp_nom == "20171f":
-        return classificacio_1_lligueta(request,comp_nom)
     # 2016    
     if comp_nom == "20161f":
         return classificacio_1_lligueta(request,comp_nom)
@@ -307,7 +301,7 @@ def classificacio_1_lligueta(request,comp_nom):
                     lequips[e]['pj'] = lequips[e]['pj'] + 1
                     lequips[e]['pp'] = lequips[e]['pp'] + 1
                 # Desde setemmbre de 2015 comencem a computar els punts diferents. Els dobles son un punt i lempat sense els dobles es possibleSince Sep2015 we start computing the points different. Doubles count as 1 point and a draw match is possible
-                if (comp_nom == "20151f" or comp_nom == "20161f" or comp_nom == "20171f"):
+                if (comp_nom == "20151f" or comp_nom == "20161f"):
                     #El camp guanyador_doble es 1 pel local o 2 pel visitant
                     if (enc.guanyador_doble == 1):
                         lequips[e]['punts'] = lequips[e]['punts'] + 1
@@ -340,7 +334,7 @@ def classificacio_1_lligueta(request,comp_nom):
                     lequips[e]['pj'] = lequips[e]['pj'] + 1
                     lequips[e]['pg'] = lequips[e]['pg'] + 1
                 # Desde setemmbre de 2015 comencem a computar els punts diferents. Els dobles son un punt i lempat sense els dobles es possibleSince Sep2015 we start computing the points different. Doubles count as 1 point and a draw match is possible
-                if (comp_nom == "20151f" or comp_nom == "20161f" or comp_nom == "20171f"):
+                if (comp_nom == "20151f" or comp_nom == "20161f"):
                     #El camp guanyador_doble es 1 pel local o 2 pel visitant
                     if (enc.guanyador_doble == 2):
                         lequips[e]['punts'] = lequips[e]['punts'] + 1
@@ -567,9 +561,6 @@ def ranquing(request,comp_nom):
     Hem d anar a ranquing_precalcula i canviar la crida a la funcio
     Hem d anar al ranquing_utilitzant_precalcula i canviar la select
     """
-    if comp_nom == '20171f':    
-        l_comp_1f = ['20171f']
-        return ranquing_primera_fase(request,comp_nom,l_comp_1f)
     if comp_nom == '20161f':    
         l_comp_1f = ['20161f']
         return ranquing_primera_fase(request,comp_nom,l_comp_1f)

@@ -14,36 +14,36 @@ class Competicio(models.Model):
     titol = models.CharField(max_length=50)
     activa = models.BooleanField()
     
-    def __unicode__(self):
-        return unicode(self.nom)
+    def __str__(self):
+        return str(self.nom)
 
 class Equip(models.Model):
     nom = models.CharField(max_length=50)
     
-    def __unicode__(self):
-        return unicode(self.nom) 
+    def __str__(self):
+        return str(self.nom) 
 
 class EquipCompeticio(models.Model):
     equip = models.ForeignKey(Equip)
     competicio = models.ForeignKey(Competicio)
 
-    def __unicode__(self):
+    def __str__(self):
         #return unicode(self.equip)
-        return unicode(self.equip) + ' - ' + unicode(self.competicio)
+        return str(self.equip) + ' - ' + str(self.competicio)
         
 class Jugador(models.Model):
     nom = models.CharField(max_length=50)
 
-    def __unicode__(self):
-        return unicode(self.nom)
+    def __str__(self):
+        return str(self.nom)
 
 class JugadorEquipCompeticio(models.Model):
     jugador = models.ForeignKey(Jugador)
     equipcompeticio = models.ForeignKey(EquipCompeticio)
 
-    def __unicode__(self):
+    def __str__(self):
         #return unicode(self.jugador)
-        return unicode(self.jugador) + ' - ' + unicode(self.equipcompeticio) 
+        return str(self.jugador) + ' - ' + str(self.equipcompeticio) 
 
         
 # We extend the User model of Django
@@ -52,8 +52,8 @@ class UserEquipCompeticio(models.Model):
     equipcompeticio = models.ForeignKey(EquipCompeticio)
     user = models.ForeignKey(User, unique=True)
 
-    def __unicode__(self):
-        return unicode(self.user.username) 
+    def __str__(self):
+        return str(self.user.username) 
 
 class Jornada(models.Model):
     competicio = models.ForeignKey(Competicio)
@@ -62,8 +62,8 @@ class Jornada(models.Model):
     activa = models.BooleanField()
     visible = models.BooleanField()
 
-    def __unicode__(self):
-        return unicode(self.competicio) + " J" + unicode(self.numero) + " (" + unicode(self.data) + ")"
+    def __str__(self):
+        return str(self.competicio) + " J" + str(self.numero) + " (" + str(self.data) + ")"
 
 class Encontre(models.Model):
     local = models.ForeignKey(EquipCompeticio,related_name="local")
@@ -81,10 +81,10 @@ class Encontre(models.Model):
     resultat_local_sense_doble = models.PositiveSmallIntegerField(blank="True",null="True")
     resultat_visitant_sense_doble = models.PositiveSmallIntegerField(blank="True",null="True")    
 
-    def __unicode__(self):
-        return (unicode(self.jornada.competicio) + " J" 
-            + unicode(self.jornada.numero) + ": " + unicode(self.local) 
-            + " - " + unicode(self.visitant)) 
+    def __str__(self):
+        return (str(self.jornada.competicio) + " J" 
+            + str(self.jornada.numero) + ": " + str(self.local) 
+            + " - " + str(self.visitant)) 
             
 class Individuals(models.Model):
     numero = models.PositiveSmallIntegerField()
@@ -94,9 +94,9 @@ class Individuals(models.Model):
     jocs_xyz = models.PositiveSmallIntegerField()
     encontre = models.ForeignKey(Encontre)
     
-    def __unicode__(self):
-        return (unicode(self.encontre) + " P" + unicode(self.numero) 
-            + " " + unicode(self.jugador_abc.jugador) + " - " + unicode(self.jugador_xyz.jugador))
+    def __str__(self):
+        return (str(self.encontre) + " P" + str(self.numero) 
+            + " " + str(self.jugador_abc.jugador) + " - " + str(self.jugador_xyz.jugador))
 
 class Dobles(models.Model):
     # No number, only one doublesmatch per TeamMatch
@@ -108,10 +108,10 @@ class Dobles(models.Model):
     jocs_xyz = models.PositiveSmallIntegerField()
     encontre = models.ForeignKey(Encontre)
    
-    def __unicode__(self):
-        return (unicode(self.encontre)  
-            + " " + unicode(self.jugador_abc_1.jugador) + "/" + unicode(self.jugador_abc_2.jugador)
-            + " - " + unicode(self.jugador_xyz_1.jugador) + "/" + unicode(self.jugador_xyz_2.jugador))
+    def __str__(self):
+        return (str(self.encontre)  
+            + " " + str(self.jugador_abc_1.jugador) + "/" + str(self.jugador_abc_2.jugador)
+            + " - " + str(self.jugador_xyz_1.jugador) + "/" + str(self.jugador_xyz_2.jugador))
 
 class Ranquingtti(models.Model):
     jugador = models.CharField(max_length=100, blank=True, null=True)
@@ -134,11 +134,11 @@ class Ranquingtti(models.Model):
     torneig15 = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
    
-    def __unicode__(self):
-        return (unicode(self.jugador) + " " + unicode(self.equip) + " " + unicode(self.total))
+    def __str__(self):
+        return (str(self.jugador) + " " + str(self.equip) + " " + str(self.total))
 
 class Tornejosranquingtti(models.Model):
     torneig = models.CharField(max_length=100, blank=True, null=True)
    
-    def __unicode__(self):
-        return (unicode(self.torneig))
+    def __str__(self):
+        return (str(self.torneig))
