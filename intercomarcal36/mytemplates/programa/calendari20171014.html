@@ -39,7 +39,7 @@ Nota: Aquest codi controla l'abandonament de l'equip Vic TT A de la temporada 20
         <td class="normalnocentrat" align="right">{{ e.local.equip.nom }}</td>
         <td class="normal">
         {% if e.resultat_local >= 4 or e.resultat_visitant >= 4 %}
-            {% if competicio == "20151f" or competicio == "20152f1" or competicio == "20152f2" or competicio == "20161f" or competicio == "20162f1" or competicio == "20162f2" or competicio == "20171f" %}
+            {% if competicio == "20151f" or competicio == "20152f1" or competicio == "20152f2" or competicio == "20161f" or competicio == "20162f1" or competicio == "20162f2" %}
                 {% if e.guanyador_doble == 1 %}
                     {{ e.resultat_local }}(D) - {{ e.resultat_visitant }}
                 {% else %}

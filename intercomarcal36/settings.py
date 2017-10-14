@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from . import settings_private
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'gv&18_%)5=ug-lnx&*5&q*jjrl@sium4jb)m^d61tgmcm4h&kz'
+SECRET_KEY = settings_private.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',            # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'intercomarcal_intercomarcal',           # Or path to database file if using sqlite3.
-        'USER': '15489_intercomar',                      # Not used with sqlite3.
-        'PASSWORD': 'festamajor',                        # Not used with sqlite3.
+        'USER':     settings_private.DATABASE_USER,      # Not used with sqlite3.
+        'PASSWORD': settings_private.DATABASE_PASSWORD,  # Not used with sqlite3.
         'HOST': 'mysql-intercomarcal.alwaysdata.net',    # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '3306',                                  # Set to empty string for default. Not used with sqlite3.
     }

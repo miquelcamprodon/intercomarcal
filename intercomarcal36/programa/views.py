@@ -52,7 +52,7 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
 from django.db.models import Q
-from django.views.decorators.clickjacking import xframe_options_exempt
+#from django.views.decorators.clickjacking import xframe_options_exempt
 
 #from django.views.decorators.csrf import csrf_protect
 
@@ -64,7 +64,7 @@ from intercomarcal36.programa.forms import ActaForm,LoginForm,ActaFormCD
 # Language file - Catalan
 #from web.clases.languagesp import *
 
-@xframe_options_exempt
+#@xframe_options_exempt
 def index(request):
     return render_to_response('programa/index.html')
 
@@ -101,7 +101,7 @@ def get_equips_descansa(competicio):
 
     return ldescansa
 
-@xframe_options_exempt
+#@xframe_options_exempt
 def calendari(request,comp_nom):
     listj = Jornada.objects.filter(competicio__nom = comp_nom).order_by("numero")
     liste = EquipCompeticio.objects.filter(competicio__nom = comp_nom)
@@ -694,11 +694,19 @@ def ranquing_primera_fase(request,comp_nom,l_comp_1f,precalcula=False):
             if (enc.jocs_abc >= 3):
                 ljug[e]['pj'] = ljug[e]['pj'] + 1
                 ljug[e]['pg'] = ljug[e]['pg'] + 1
-                ljug[e]['punts'] = ljug[e]['punts'] + 2
+                # From 2017 we are counting the punts differently. The new methodology is 2 points per won set. We keep the old way as well for older competitions
+                if (comp_nom == '20171f'):
+                    ljug[e]['punts'] = ljug[e]['punts'] + enc.jocs_abc*2
+                else:
+                    ljug[e]['punts'] = ljug[e]['punts'] + 2
             else:
                 ljug[e]['pj'] = ljug[e]['pj'] + 1
                 ljug[e]['pp'] = ljug[e]['pp'] + 1
-                ljug[e]['punts'] = ljug[e]['punts'] - 1
+                # From 2017 we are counting the punts differently. The new methodology is 2 points per won set. We keep the old way as well for older competitions
+                if (comp_nom == '20171f'):
+                    ljug[e]['punts'] = ljug[e]['punts'] + enc.jocs_abc*2
+                else:
+                    ljug[e]['punts'] = ljug[e]['punts'] - 1
             
             
         # xyz player
@@ -722,11 +730,19 @@ def ranquing_primera_fase(request,comp_nom,l_comp_1f,precalcula=False):
             if (enc.jocs_abc >= 3):
                 ljug[e]['pj'] = ljug[e]['pj'] + 1
                 ljug[e]['pp'] = ljug[e]['pp'] + 1
-                ljug[e]['punts'] = ljug[e]['punts'] - 1
+                # From 2017 we are counting the punts differently. The new methodology is 2 points per won set. We keep the old way as well for older competitions
+                if (comp_nom == '20171f'):
+                    ljug[e]['punts'] = ljug[e]['punts'] + enc.jocs_xyz*2
+                else:
+                    ljug[e]['punts'] = ljug[e]['punts'] - 1
             else:
                 ljug[e]['pj'] = ljug[e]['pj'] + 1
                 ljug[e]['pg'] = ljug[e]['pg'] + 1
-                ljug[e]['punts'] = ljug[e]['punts'] + 2
+                # From 2017 we are counting the punts differently. The new methodology is 2 points per won set. We keep the old way as well for older competitions
+                if (comp_nom == '20171f'):
+                    ljug[e]['punts'] = ljug[e]['punts'] + enc.jocs_xyz*2
+                else:
+                    ljug[e]['punts'] = ljug[e]['punts'] + 2
 
     # Now we build the classification table. Inverse order
     lojug = list(ljug.items())
@@ -1285,53 +1301,55 @@ def acta_cd(request,acta_id):
 
             #return HttpResponseRedirect('/programa/calendari/' + str(comp_nom) + '/')
             #a partir de setembre de 2015 deixem que torni a la pagina inicial del bloc. No cal que vagi a la pagina resultats, es innecesari
-            
+
+            if comp_nom == '20171f':
+                return HttpResponseRedirect('http://intercomarcal.alwaysdata.net/programa/calendari/20171f/')            
             if comp_nom == '20141f':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga_1.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20142f1':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/blog-page_28.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20142f2':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-2014-2015-2a-fase.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20142f3':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-2014-2015-2a-fase_28.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             
             if comp_nom == '2013g1':
                 ranquing_precalcula()
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga_7545.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '2013g2':
                 ranquing_precalcula()
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga_7311.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
                 
 
             if comp_nom == '20121f':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga_23.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20122f1':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga_24.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20122f2':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga_7268.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20122f3':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga_3782.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
 
 
             if comp_nom == '20111f':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20112f1':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga-2011-2012.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
             elif comp_nom == '20112f2':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-lliga-2011-2012_17.html')
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')
 
                 
             if comp_nom == '20101fA':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-grup-1.html')            
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')     
             elif comp_nom == '20101fB':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-grup-2.html')            
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')        
             if comp_nom == '20102f1':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-grup-1_05.html')            
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')           
             elif comp_nom == '20102f2':
-                return HttpResponseRedirect('http://ttintercomarcal.blogspot.com/p/calendari-i-resultats-grup-2_05.html')            
+                return HttpResponseRedirect('https://ttintercomarcal.wordpress.com/')          
 
 
-            return HttpResponseRedirect('http://ttintercomarcal.blogspot.com')
+            return HttpResponseRedirect('https://ttintercomarcal.wordpress.com')
 
         else:
             response = render(request,'programa/acta_cd.html',

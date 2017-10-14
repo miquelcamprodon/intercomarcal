@@ -1,4 +1,5 @@
 # Configuration files
 ##################### 
-settings* 
+settings_private.py 
+settings2*
 *.pyc
